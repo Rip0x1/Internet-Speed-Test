@@ -60,7 +60,7 @@
 
 ## 📷 Скриншоты
 
-
+![image](https://github.com/user-attachments/assets/c128cf6c-21ae-4f53-a1d8-d8f2dfc3c604)
 
 ---
 
