@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +9,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -29,10 +27,10 @@ namespace InternetSpeedTest.ViewModels
             ("OpenDNS", "https://www.opendns.com", "208.67.222.222"),
             ("Quad9", "https://www.quad9.net", "9.9.9.9")
         };
-        [ObservableProperty] private string _downloadSpeed = "0 Мбит/с";
-        [ObservableProperty] private string _uploadSpeed = "0 Мбит/с";
-        [ObservableProperty] private string _ping = "0 мс";
-        [ObservableProperty] private string _server = "Авто";
+        [ObservableProperty] private string _downloadSpeed = "0 Mbps";
+        [ObservableProperty] private string _uploadSpeed = "0 Mbps";
+        [ObservableProperty] private string _ping = "0 ms";
+        [ObservableProperty] private string _server = "Auto";
         [ObservableProperty] private bool _isTesting;
         [ObservableProperty] private string _selectedBackgroundColor = "#1E1E1E";
         [ObservableProperty] private string _gradientEndColor = "#121212";
@@ -41,18 +39,24 @@ namespace InternetSpeedTest.ViewModels
         [ObservableProperty] private bool _darkTheme = true;
         [ObservableProperty] private bool _grayTheme;
         [ObservableProperty] private bool _lightTheme;
-        [ObservableProperty] private string _currentDownloadSpeed = "0 Мбит/с";
-        [ObservableProperty] private double _currentSpeedProgress;
+        [ObservableProperty] private bool _isRussian = true;
+        [ObservableProperty] private bool _isEnglish;
+        [ObservableProperty] private string _currentDownloadSpeed = "0 Mbps";
+        [ObservableProperty] private double _progress;
+        [ObservableProperty] private double _previousProgress;
         public ObservableCollection<TestResult> TestHistory => _testHistory;
         public IRelayCommand StartTestCommand { get; }
         public IRelayCommand ExportCommand { get; }
+        public IRelayCommand ClearHistoryCommand { get; }
         public IRelayCommand CloseCommand { get; }
 
         public MainViewModel()
         {
             StartTestCommand = new AsyncRelayCommand(StartTestAsync);
             ExportCommand = new RelayCommand(Export);
+            ClearHistoryCommand = new RelayCommand(ClearHistory);
             CloseCommand = new RelayCommand(() => Application.Current.MainWindow.Close());
+            LoadHistory();
             PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(DarkTheme) && DarkTheme)
@@ -61,6 +65,10 @@ namespace InternetSpeedTest.ViewModels
                     GradientEndColor = "#121212";
                     TextColor = "White";
                     CardBackground = "#2C2C2C";
+                    GrayTheme = false;
+                    LightTheme = false;
+                    Progress = 0;
+                    PreviousProgress = 0;
                 }
                 if (e.PropertyName == nameof(GrayTheme) && GrayTheme)
                 {
@@ -68,6 +76,10 @@ namespace InternetSpeedTest.ViewModels
                     GradientEndColor = "#1E1E1E";
                     TextColor = "White";
                     CardBackground = "#424242";
+                    DarkTheme = false;
+                    LightTheme = false;
+                    Progress = 0;
+                    PreviousProgress = 0;
                 }
                 if (e.PropertyName == nameof(LightTheme) && LightTheme)
                 {
@@ -75,8 +87,96 @@ namespace InternetSpeedTest.ViewModels
                     GradientEndColor = "#E0E0E0";
                     TextColor = "Black";
                     CardBackground = "White";
+                    DarkTheme = false;
+                    GrayTheme = false;
+                    Progress = 0;
+                    PreviousProgress = 0;
+                }
+                if (e.PropertyName == nameof(IsRussian) && IsRussian)
+                {
+                    IsEnglish = false;
+                    UpdateLanguage("ru");
+                }
+                if (e.PropertyName == nameof(IsEnglish) && IsEnglish)
+                {
+                    IsRussian = false;
+                    UpdateLanguage("en");
+                }
+                if (e.PropertyName == nameof(Progress))
+                {
+                    PreviousProgress = Progress;
                 }
             };
+            UpdateLanguage("ru");
+        }
+
+        private void LoadHistory()
+        {
+            try
+            {
+                if (File.Exists("speed_test_history.json"))
+                {
+                    var json = File.ReadAllText("speed_test_history.json");
+                    var history = JsonSerializer.Deserialize<List<TestResult>>(json);
+                    if (history != null)
+                    {
+                        foreach (var result in history)
+                        {
+                            _testHistory.Add(result);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Application.Current.Resources["Error"]} {ex.Message}");
+            }
+        }
+
+        private void SaveHistory()
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(_testHistory, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText("speed_test_history.json", json);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Application.Current.Resources["Error"]} {ex.Message}");
+            }
+        }
+
+        private void UpdateLanguage(string culture)
+        {
+            var dict = new ResourceDictionary();
+            dict.Source = new Uri($"/Styles/Resources.{culture}.xaml", UriKind.Relative);
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(dict);
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml")
+            });
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml")
+            });
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml")
+            });
+            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml")
+            });
+            var templateDict = new ResourceDictionary();
+            templateDict.Add("TestResultTemplate", Application.Current.Resources["TestResultTemplate"]);
+            templateDict.Add("BooleanToVisibilityConverter", Application.Current.Resources["BooleanToVisibilityConverter"]);
+            Application.Current.Resources.MergedDictionaries.Add(templateDict);
+            DownloadSpeed = IsTesting ? (string)Application.Current.Resources["Testing"] : "0 Mbps";
+            UploadSpeed = IsTesting ? (string)Application.Current.Resources["Testing"] : "0 Mbps";
+            Ping = IsTesting ? (string)Application.Current.Resources["Testing"] : "0 ms";
+            Server = IsTesting ? Server : (string)Application.Current.Resources["Auto"];
+            CurrentDownloadSpeed = "0 Mbps";
         }
 
         private async Task StartTestAsync()
@@ -84,18 +184,19 @@ namespace InternetSpeedTest.ViewModels
             try
             {
                 IsTesting = true;
-                DownloadSpeed = "Тестирование...";
-                UploadSpeed = "Тестирование...";
-                Ping = "Тестирование...";
-                CurrentDownloadSpeed = "0 Мбит/с";
-                CurrentSpeedProgress = 0;
+                DownloadSpeed = (string)Application.Current.Resources["Testing"];
+                UploadSpeed = (string)Application.Current.Resources["Testing"];
+                Ping = (string)Application.Current.Resources["Testing"];
+                CurrentDownloadSpeed = "0 Mbps";
+                Progress = 0;
+                PreviousProgress = 0;
                 var server = await SelectBestServerAsync();
                 Server = server.Name;
                 double ping = await TestPingAsync(server.PingAddress);
-                Ping = $"{ping:F0} мс";
+                Ping = $"{ping:F0} ms";
                 var (downloadSpeed, uploadSpeed) = await TestSpeedAsync(server.Url);
-                DownloadSpeed = $"{downloadSpeed:F2} Мбит/с";
-                UploadSpeed = $"{uploadSpeed:F2} Мбит/с";
+                DownloadSpeed = $"{downloadSpeed:F2} Mbps";
+                UploadSpeed = $"{uploadSpeed:F2} Mbps";
                 _testHistory.Add(new TestResult
                 {
                     Timestamp = DateTime.Now,
@@ -103,19 +204,22 @@ namespace InternetSpeedTest.ViewModels
                     UploadSpeed = uploadSpeed,
                     Ping = ping
                 });
+                SaveHistory();
                 IsTesting = false;
-                CurrentDownloadSpeed = "0 Мбит/с";
-                CurrentSpeedProgress = 0;
+                CurrentDownloadSpeed = "0 Mbps";
+                Progress = 0;
+                PreviousProgress = 0;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка: {ex.Message}");
+                MessageBox.Show($"{Application.Current.Resources["Error"]} {ex.Message}");
                 IsTesting = false;
-                DownloadSpeed = "0 Мбит/с";
-                UploadSpeed = "0 Мбит/с";
-                Ping = "0 мс";
-                CurrentDownloadSpeed = "0 Мбит/с";
-                CurrentSpeedProgress = 0;
+                DownloadSpeed = "0 Mbps";
+                UploadSpeed = "0 Mbps";
+                Ping = "0 ms";
+                CurrentDownloadSpeed = "0 Mbps";
+                Progress = 0;
+                PreviousProgress = 0;
             }
         }
 
@@ -134,8 +238,11 @@ namespace InternetSpeedTest.ViewModels
                 iterations++;
                 double elapsedSeconds = stopwatch.Elapsed.TotalSeconds;
                 double currentSpeed = elapsedSeconds > 0 ? (totalDownloadBits / elapsedSeconds) / 1_000_000 : 0;
-                CurrentDownloadSpeed = $"{currentSpeed:F2} Мбит/с";
-                CurrentSpeedProgress = Math.Min((elapsedSeconds / testDurationSeconds) * 100, 100);
+                CurrentDownloadSpeed = $"{currentSpeed:F2} Mbps";
+
+                double targetProgress = Math.Min((elapsedSeconds / testDurationSeconds) * 100, 100);
+                await AnimateProgressAsync(Progress, targetProgress);
+
                 await Task.Delay(1000);
             }
             stopwatch.Stop();
@@ -143,6 +250,20 @@ namespace InternetSpeedTest.ViewModels
             double downloadSpeed = totalSeconds > 0 ? (totalDownloadBits / totalSeconds) / 1_000_000 : 0;
             double uploadSpeed = downloadSpeed * 0.4;
             return (downloadSpeed, uploadSpeed);
+        }
+
+        private async Task AnimateProgressAsync(double startValue, double endValue)
+        {
+            const int animationSteps = 10;
+            const int stepDelayMs = 50; 
+            double step = (endValue - startValue) / animationSteps;
+
+            for (int i = 0; i < animationSteps; i++)
+            {
+                PreviousProgress = Progress;
+                Progress = startValue + step * (i + 1);
+                await Task.Delay(stepDelayMs);
+            }
         }
 
         private async Task<(string Name, string Url, string PingAddress)> SelectBestServerAsync()
@@ -181,11 +302,28 @@ namespace InternetSpeedTest.ViewModels
             {
                 var json = JsonSerializer.Serialize(_testHistory, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText("speed_test_history.json", json);
-                MessageBox.Show("История экспортирована в speed_test_history.json");
+                MessageBox.Show((string)Application.Current.Resources["ExportSuccess"]);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка экспорта: {ex.Message}");
+                MessageBox.Show($"{Application.Current.Resources["ExportError"]} {ex.Message}");
+            }
+        }
+
+        private void ClearHistory()
+        {
+            try
+            {
+                _testHistory.Clear();
+                if (File.Exists("speed_test_history.json"))
+                {
+                    File.Delete("speed_test_history.json");
+                }
+                MessageBox.Show((string)Application.Current.Resources["ClearHistorySuccess"]);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Application.Current.Resources["Error"]} {ex.Message}");
             }
         }
     }

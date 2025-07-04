@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <system:String x:Key="AppTitle">Internet Speed Test</system:String>
+    <system:String x:Key="Download">Download:</system:String>
+    <system:String x:Key="Upload">Upload:</system:String>
+    <system:String x:Key="Ping">Ping:</system:String>
+    <system:String x:Key="Server">Server:</system:String>
+    <system:String x:Key="Auto">Auto</system:String>
+    <system:String x:Key="Testing">Testing...</system:String>
+    <system:String x:Key="HistoryTitle">Test History</system:String>
+    <system:String x:Key="StartTest">Start Test</system:String>
+    <system:String x:Key="ExportResults">Export Results</system:String>
+    <system:String x:Key="ClearHistory">Clear History</system:String>
+    <system:String x:Key="Close">Close</system:String>
+    <system:String x:Key="DarkTheme">Dark</system:String>
+    <system:String x:Key="LightTheme">Light</system:String>
+    <system:String x:Key="ExportSuccess">History exported to speed_test_history.json</system:String>
+    <system:String x:Key="ClearHistorySuccess">History cleared</system:String>
+    <system:String x:Key="ExportError">Export failed:</system:String>
+    <system:String x:Key="Error">Error:</system:String>
+    <system:String x:Key="TestAt">Test at</system:String>
+</ResourceDictionary>
