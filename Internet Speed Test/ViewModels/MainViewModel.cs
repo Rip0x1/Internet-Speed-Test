@@ -37,7 +37,6 @@ namespace InternetSpeedTest.ViewModels
         [ObservableProperty] private string _textColor = "White";
         [ObservableProperty] private string _cardBackground = "#2C2C2C";
         [ObservableProperty] private bool _darkTheme = true;
-        [ObservableProperty] private bool _grayTheme;
         [ObservableProperty] private bool _lightTheme;
         [ObservableProperty] private bool _isRussian = true;
         [ObservableProperty] private bool _isEnglish;
@@ -65,7 +64,6 @@ namespace InternetSpeedTest.ViewModels
                     GradientEndColor = "#121212";
                     TextColor = "White";
                     CardBackground = "#2C2C2C";
-                    GrayTheme = false;
                     LightTheme = false;
                     Progress = 0;
                     PreviousProgress = 0;
@@ -88,7 +86,6 @@ namespace InternetSpeedTest.ViewModels
                     TextColor = "Black";
                     CardBackground = "White";
                     DarkTheme = false;
-                    GrayTheme = false;
                     Progress = 0;
                     PreviousProgress = 0;
                 }
