@@ -51,7 +51,7 @@
 ## 🔮 Планы на будущее
 
 - ✅ Расширенная аналитика по истории тестов
-- ✅ Создание мобильного приложения на **.NET MAUI** для Android/iOS
+- ✅ Доработка мобильного приложения на **.NET MAUI** для Android/iOS
 - ✅ Синхронизация истории между устройствами
 
 ---
@@ -59,6 +59,8 @@
 ## 📷 Скриншоты
 
 ![image](https://github.com/user-attachments/assets/05231b7d-e7dc-4a07-bfd4-a31431f935be)
+![image](https://github.com/user-attachments/assets/7bc094b0-c9f3-4d2b-a8c5-db7bb716fbc2)
+
 
 ---
 
