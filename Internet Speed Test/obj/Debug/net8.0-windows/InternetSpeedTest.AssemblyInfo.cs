@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InternetSpeedTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+379f7cb89ff623909764d31d2c5eec219ce53c55")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9ce45c403ad0a77996caaf3d92c2724d3f1b2f3")]
 [assembly: System.Reflection.AssemblyProductAttribute("InternetSpeedTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InternetSpeedTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

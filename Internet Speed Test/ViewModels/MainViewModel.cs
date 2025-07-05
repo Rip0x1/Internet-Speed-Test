@@ -68,17 +68,6 @@ namespace InternetSpeedTest.ViewModels
                     Progress = 0;
                     PreviousProgress = 0;
                 }
-                if (e.PropertyName == nameof(GrayTheme) && GrayTheme)
-                {
-                    SelectedBackgroundColor = "#2C2C2C";
-                    GradientEndColor = "#1E1E1E";
-                    TextColor = "White";
-                    CardBackground = "#424242";
-                    DarkTheme = false;
-                    LightTheme = false;
-                    Progress = 0;
-                    PreviousProgress = 0;
-                }
                 if (e.PropertyName == nameof(LightTheme) && LightTheme)
                 {
                     SelectedBackgroundColor = "#F5F5F5";
