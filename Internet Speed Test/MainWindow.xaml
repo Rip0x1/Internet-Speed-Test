@@ -1,0 +1,163 @@
+﻿<Window x:Class="InternetSpeedTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:InternetSpeedTest.ViewModels"
+        Title="{DynamicResource AppTitle}" 
+        Height="700" Width="1200"
+        WindowStyle="None" AllowsTransparency="True"
+        Background="Transparent">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="Padding" Value="24,16"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Background" Value="#7C4DFF"/>
+            <Setter Property="BorderBrush" Value="#7C4DFF"/>
+            <Setter Property="MinWidth" Value="160"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="2" Opacity="0.3" BlurRadius="5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ProgressBar" x:Key="LinearProgress">
+            <Setter Property="Foreground" Value="#FF4081"/>
+            <Setter Property="Background" Value="#424242"/>
+            <Setter Property="Height" Value="15"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Value" Value="{Binding Progress}"/>
+        </Style>
+        <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignRadioButton}">
+            <Setter Property="Margin" Value="12"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DarkTheme}" Value="True">
+                    <Setter Property="Foreground" Value="#E1BEE7"/>
+                    <Setter Property="BorderBrush" Value="#E1BEE7"/>
+                    <Setter Property="Background" Value="#424242"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding GrayTheme}" Value="True">
+                    <Setter Property="Foreground" Value="#E1BEE7"/>
+                    <Setter Property="BorderBrush" Value="#E1BEE7"/>
+                    <Setter Property="Background" Value="#424242"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding LightTheme}" Value="True">
+                    <Setter Property="Foreground" Value="#7C4DFF"/>
+                    <Setter Property="BorderBrush" Value="#7C4DFF"/>
+                    <Setter Property="Background" Value="#F5F5F5"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="HistoryContainer" TargetType="Border">
+            <Setter Property="Background" Value="{Binding CardBackground}"/>
+            <Setter Property="CornerRadius" Value="15"/>
+            <Setter Property="Margin" Value="20"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="#7C4DFF"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="3" Opacity="0.4" BlurRadius="8"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Border Margin="15">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{Binding SelectedBackgroundColor}" Offset="0"/>
+                <GradientStop Color="{Binding GradientEndColor}" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border CornerRadius="30" BorderBrush="#7C4DFF" BorderThickness="3" Effect="{StaticResource MaterialDesignElevationShadow1}">
+            <Grid Margin="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{DynamicResource AppTitle}"
+                               FontSize="36"
+                               Foreground="{Binding TextColor}"
+                               FontWeight="Bold"
+                               FontFamily="Segoe UI"
+                               HorizontalAlignment="Center"
+                               Margin="0,25,0,35"/>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <RadioButton Content="Русский" IsChecked="{Binding IsRussian, Mode=TwoWay}" GroupName="Language"/>
+                        <RadioButton Content="English" IsChecked="{Binding IsEnglish, Mode=TwoWay}" GroupName="Language"/>
+                        <RadioButton Content="{DynamicResource DarkTheme}" IsChecked="{Binding DarkTheme, Mode=TwoWay}" GroupName="Theme"/>
+                        <RadioButton Content="{DynamicResource LightTheme}" IsChecked="{Binding LightTheme, Mode=TwoWay}" GroupName="Theme"/>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel VerticalAlignment="Center" Margin="30">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,15,30">
+                            <TextBlock Text="{DynamicResource Download}" Foreground="{Binding TextColor}" FontSize="28" FontFamily="Segoe UI"/>
+                            <TextBlock Text="{Binding DownloadSpeed}" Margin="15,0,0,0" Foreground="#FF4081" FontSize="28" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,15,30">
+                            <TextBlock Text="{DynamicResource Upload}" Foreground="{Binding TextColor}" FontSize="28" FontFamily="Segoe UI"/>
+                            <TextBlock Text="{Binding UploadSpeed}" Margin="15,0,0,0" Foreground="#FF4081" FontSize="28" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,15,30">
+                            <TextBlock Text="{DynamicResource Ping}" Foreground="{Binding TextColor}" FontSize="28" FontFamily="Segoe UI"/>
+                            <TextBlock Text="{Binding Ping}" Margin="15,0,0,0" Foreground="#FF4081" FontSize="28" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,15,30">
+                            <TextBlock Text="{DynamicResource Server}" Foreground="{Binding TextColor}" FontSize="28" FontFamily="Segoe UI"/>
+                            <TextBlock Text="{Binding Server}" Margin="15,0,0,0" Foreground="#FF4081" FontSize="28" FontFamily="Segoe UI"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Border Grid.Column="1" Style="{StaticResource HistoryContainer}">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="{DynamicResource HistoryTitle}" Foreground="{Binding TextColor}" FontSize="22" FontFamily="Segoe UI" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Width="400" Height="224">
+                                <ListBox ItemsSource="{Binding TestHistory}" ItemTemplate="{StaticResource TestResultTemplate}" Foreground="{Binding TextColor}" Background="Transparent" BorderThickness="0"/>
+                            </ScrollViewer>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Content="{DynamicResource StartTest}" Command="{Binding StartTestCommand}"/>
+                    <Button Content="{DynamicResource ExportResults}" Command="{Binding ExportCommand}"/>
+                    <Button Content="{DynamicResource ClearHistory}" Command="{Binding ClearHistoryCommand}"/>
+                    <Button Content="{DynamicResource Close}" Command="{Binding CloseCommand}"/>
+                </StackPanel>
+                <ProgressBar Grid.Row="3" x:Name="ProgressBar" 
+             Style="{StaticResource LinearProgress}" 
+             Visibility="{Binding IsTesting, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ProgressBar.Triggers>
+                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation Storyboard.TargetProperty="(ProgressBar.Foreground).(SolidColorBrush.Color)" 
+                                    From="#FF4081" To="#FF80AB" 
+                                    Duration="0:0:1" AutoReverse="True" RepeatBehavior="Forever"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ProgressBar.Triggers>
+                </ProgressBar>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

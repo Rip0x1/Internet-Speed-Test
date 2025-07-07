@@ -1,0 +1,55 @@
+﻿<Application x:Class="InternetSpeedTest.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:InternetSpeedTest"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/Resources.ru.xaml"/>
+                <ResourceDictionary Source="/Styles/Resources.en.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign2.Defaults.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="TestResultTemplate">
+                <StackPanel Margin="5">
+                    <TextBlock FontSize="14" FontFamily="Segoe UI">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1:yyyy-MM-dd HH:mm:ss}">
+                                <Binding Source="{StaticResource TestAt}"/>
+                                <Binding Path="Timestamp"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock FontSize="14" FontFamily="Segoe UI">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1:F2} Mbps">
+                                <Binding Source="{StaticResource Download}"/>
+                                <Binding Path="DownloadSpeed"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock FontSize="14" FontFamily="Segoe UI">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1:F2} Mbps">
+                                <Binding Source="{StaticResource Upload}"/>
+                                <Binding Path="UploadSpeed"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock FontSize="14" FontFamily="Segoe UI">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1:F0} ms">
+                                <Binding Source="{StaticResource Ping}"/>
+                                <Binding Path="Ping"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+            </DataTemplate>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,54 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Speed_Test_MAUI.Converters"
+             xmlns:local="clr-namespace:Speed_Test_MAUI"
+             x:Class="Speed_Test_MAUI.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <DataTemplate x:Key="TestResultTemplate">
+                <StackLayout Spacing="5" Padding="5">
+                    <Label FontSize="14" FontFamily="Segoe UI">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Source={StaticResource TestAt}}" />
+                                <Span Text=" " />
+                                <Span Text="{Binding Timestamp, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label FontSize="14" FontFamily="Segoe UI">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Source={StaticResource Download}}" />
+                                <Span Text=" " />
+                                <Span Text="{Binding DownloadSpeed, StringFormat='{0:F2} Mbps'}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label FontSize="14" FontFamily="Segoe UI">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Source={StaticResource Upload}}" />
+                                <Span Text=" " />
+                                <Span Text="{Binding UploadSpeed, StringFormat='{0:F2} Mbps'}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label FontSize="14" FontFamily="Segoe UI">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding Source={StaticResource Ping}}" />
+                                <Span Text=" " />
+                                <Span Text="{Binding Ping, StringFormat='{0:F0} ms'}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

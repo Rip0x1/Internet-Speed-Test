@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Speed_Test_MAUI.MainPage"
+             BackgroundColor="{DynamicResource BackgroundColor}">
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#7C4DFF"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="WidthRequest" Value="150"/>
+            <Setter Property="HeightRequest" Value="40"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Visual" Value="Material"/>
+        </Style>
+        <Style TargetType="ProgressBar">
+            <Setter Property="ProgressColor" Value="{Binding ProgressColor}"/>
+            <Setter Property="BackgroundColor" Value="#424242"/>
+            <Setter Property="HeightRequest" Value="8"/>
+            <Setter Property="WidthRequest" Value="150"/>
+            <Setter Property="Progress" Value="{Binding Progress}"/>
+            <Setter Property="Visual" Value="Material"/>
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="Visual" Value="Material"/>
+        </Style>
+        <Style TargetType="Frame" x:Key="HistoryContainer">
+            <Setter Property="BackgroundColor" Value="Gray"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="50"/>
+            <Setter Property="BorderColor" Value="Black"/>
+            <Setter Property="HasShadow" Value="True"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto,*,Auto,Auto" VerticalOptions="Center" ColumnDefinitions="*" Margin="10" HorizontalOptions="Center" MaximumWidthRequest="600">
+        <Grid RowDefinitions="Auto" ColumnDefinitions="*,Auto" Margin="0,10,0,10">
+            <Label Text="Internet Speed Test"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+
+        </Grid>
+        <Grid Grid.Row="1" RowDefinitions="Auto,Auto" ColumnDefinitions="*,*">
+            <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" Spacing="8" Margin="10" HorizontalOptions="Center">
+                <HorizontalStackLayout Spacing="8">
+                    <Label Text="Download" FontSize="18"/>
+                    <Label Text="{Binding DownloadSpeed}" TextColor="#FF4081" FontSize="18"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="8">
+                    <Label Text="Upload" FontSize="18"/>
+                    <Label Text="{Binding UploadSpeed}" TextColor="#FF4081" FontSize="18"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="8">
+                    <Label Text="Ping" FontSize="18"/>
+                    <Label Text="{Binding Ping}" TextColor="#FF4081" FontSize="18"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="8">
+                    <Label Text="Server" FontSize="18"/>
+                    <Label Text="{Binding Server}" TextColor="#FF4081" FontSize="18"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+            <Frame Grid.Column="1" Style="{StaticResource HistoryContainer}" VerticalOptions="Center" HorizontalOptions="Center">
+                <VerticalStackLayout Spacing="8" Padding="10">
+                    <Label Text="Test History" FontSize="Body" HorizontalOptions="Center"/>
+                    <ScrollView WidthRequest="200" HeightRequest="200">
+                        <CollectionView ItemsSource="{Binding TestHistory}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="5" Padding="5">
+                                        <Label FontSize="12">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Test at " />
+                                                    <Span Text="{Binding Timestamp, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label FontSize="12">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Download " />
+                                                    <Span Text="{Binding DownloadSpeed, StringFormat='{0:F2} Mbps'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label FontSize="12">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Upload " />
+                                                    <Span Text="{Binding UploadSpeed, StringFormat='{0:F2} Mbps'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label FontSize="12">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Ping " />
+                                                    <Span Text="{Binding Ping, StringFormat='{0:F0} ms'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </ScrollView>
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+        <VerticalStackLayout Grid.Row="2" Spacing="5" Margin="0,70,0, 10" HorizontalOptions="Center">
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Button Text="Start Test" Command="{Binding StartTestCommand}"/>
+                <Button Text="Export Results" Command="{Binding ExportCommand}"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Button Text="Clear History" Command="{Binding ClearHistoryCommand}"/>
+                <Button Text="Close" Command="{Binding CloseCommand}"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        <ProgressBar Grid.Row="3" IsVisible="{Binding IsTesting}" HorizontalOptions="Center"/>
+    </Grid>
+
+</ContentPage>
