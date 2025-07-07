@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Maui.Animations;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Graphics.Text;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -34,6 +34,17 @@ namespace Speed_Test_MAUI.ViewModels
         [ObservableProperty] private string _backgroundColor = "#1E1E1E";
         [ObservableProperty] private string _textColor = "White";
         [ObservableProperty] private string _cardBackground = "#2C2C2C";
+        [ObservableProperty]
+        private Brush _cardBackgroundGradient = new LinearGradientBrush
+        {
+            EndPoint = new Point(0, 1),
+            GradientStops = new GradientStopCollection
+            {
+                new GradientStop { Color = Color.FromArgb("#2C2C2C"), Offset = 0.0f },
+                new GradientStop { Color = Color.FromArgb("#1E1E1E"), Offset = 1.0f }
+            }
+        };
+        [ObservableProperty] private Color _progressColor = Color.FromArgb("#FF4081");
         [ObservableProperty] private bool _darkTheme = true;
         [ObservableProperty] private bool _lightTheme;
         [ObservableProperty] private double _progress;
@@ -58,7 +69,7 @@ namespace Speed_Test_MAUI.ViewModels
                 {
                     BackgroundColor = "#1E1E1E";
                     TextColor = "White";
-                    CardBackground = "#2C2C2C";
+                    CardBackground = "#2C2C2C"; 
                     LightTheme = false;
                     Progress = 0;
                     PreviousProgress = 0;
@@ -99,7 +110,7 @@ namespace Speed_Test_MAUI.ViewModels
             }
             catch (Exception ex)
             {
-                Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                Application.Current.MainPage.DisplayAlert("Error", $"Error: {ex.Message}", "OK");
             }
         }
 
@@ -113,17 +124,16 @@ namespace Speed_Test_MAUI.ViewModels
             }
             catch (Exception ex)
             {
-                Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                Application.Current.MainPage.DisplayAlert("Error", $"Error: {ex.Message}", "OK");
             }
         }
-
 
         private async Task StartTestAsync()
         {
             try
             {
                 IsTesting = true;
-                DownloadSpeed = "Testing"; 
+                DownloadSpeed = "Testing";
                 UploadSpeed = "Testing";
                 Ping = "Testing";
                 Progress = 0;
@@ -165,6 +175,7 @@ namespace Speed_Test_MAUI.ViewModels
             double totalDownloadBits = 0;
             int iterations = 0;
             var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            _ = AnimateProgressColor();
             while (stopwatch.Elapsed.TotalSeconds < testDurationSeconds)
             {
                 var response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseContentRead);
@@ -173,6 +184,8 @@ namespace Speed_Test_MAUI.ViewModels
                 totalDownloadBits += content.Length * 8;
                 iterations++;
                 double elapsedSeconds = stopwatch.Elapsed.TotalSeconds;
+                double currentSpeed = elapsedSeconds > 0 ? (totalDownloadBits / elapsedSeconds) / 1_000_000 : 0;
+                DownloadSpeed = $"{currentSpeed:F2} Mbps";
                 double targetProgress = Math.Min((elapsedSeconds / testDurationSeconds) * 100, 100);
                 await AnimateProgressAsync(Progress, targetProgress);
                 await Task.Delay(1000);
@@ -194,6 +207,21 @@ namespace Speed_Test_MAUI.ViewModels
             {
                 PreviousProgress = Progress;
                 Progress = startValue + step * (i + 1);
+                await Task.Delay(stepDelayMs);
+            }
+        }
+
+        private async Task AnimateProgressColor()
+        {
+            var fromColor = Color.FromArgb("#FF4081");
+            var toColor = Color.FromArgb("#FF80AB");
+            const int animationSteps = 20;
+            const int stepDelayMs = 50;
+
+            for (int i = 0; i <= animationSteps; i++)
+            {
+                float t = (float)i / animationSteps;
+                ProgressColor = fromColor.Lerp(toColor, t);
                 await Task.Delay(stepDelayMs);
             }
         }
@@ -260,13 +288,13 @@ namespace Speed_Test_MAUI.ViewModels
                 Application.Current.MainPage.DisplayAlert("Error", $"Error: {ex.Message}", "OK");
             }
         }
+    }
 
-        public class TestResult
-        {
-            public DateTime Timestamp { get; set; }
-            public double DownloadSpeed { get; set; }
-            public double UploadSpeed { get; set; }
-            public double Ping { get; set; }
-        }
+    public class TestResult
+    {
+        public DateTime Timestamp { get; set; }
+        public double DownloadSpeed { get; set; }
+        public double UploadSpeed { get; set; }
+        public double Ping { get; set; }
     }
 }

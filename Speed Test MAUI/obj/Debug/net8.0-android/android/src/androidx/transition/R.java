@@ -376,14 +376,14 @@ public final class R {
 		public static final int secondary_text_default_material_light = 0x7f0502e4;
 		public static final int secondary_text_disabled_material_dark = 0x7f0502e5;
 		public static final int secondary_text_disabled_material_light = 0x7f0502e6;
-		public static final int switch_thumb_disabled_material_dark = 0x7f0502e7;
-		public static final int switch_thumb_disabled_material_light = 0x7f0502e8;
-		public static final int switch_thumb_material_dark = 0x7f0502e9;
-		public static final int switch_thumb_material_light = 0x7f0502ea;
-		public static final int switch_thumb_normal_material_dark = 0x7f0502eb;
-		public static final int switch_thumb_normal_material_light = 0x7f0502ec;
-		public static final int tooltip_background_dark = 0x7f0502ed;
-		public static final int tooltip_background_light = 0x7f0502ee;
+		public static final int switch_thumb_disabled_material_dark = 0x7f0502e8;
+		public static final int switch_thumb_disabled_material_light = 0x7f0502e9;
+		public static final int switch_thumb_material_dark = 0x7f0502ea;
+		public static final int switch_thumb_material_light = 0x7f0502eb;
+		public static final int switch_thumb_normal_material_dark = 0x7f0502ec;
+		public static final int switch_thumb_normal_material_light = 0x7f0502ed;
+		public static final int tooltip_background_dark = 0x7f0502ee;
+		public static final int tooltip_background_light = 0x7f0502ef;
 	}
 	public static final class dimen {
 		public static final int abc_action_bar_content_inset_material = 0x7f060000;
@@ -586,8 +586,8 @@ public final class R {
 		public static final int notification_template_icon_low_bg = 0x7f0700df;
 		public static final int notification_tile_bg = 0x7f0700e0;
 		public static final int notify_panel_notification_icon_bg = 0x7f0700e1;
-		public static final int tooltip_frame_dark = 0x7f0700e4;
-		public static final int tooltip_frame_light = 0x7f0700e5;
+		public static final int tooltip_frame_dark = 0x7f0700e3;
+		public static final int tooltip_frame_light = 0x7f0700e4;
 	}
 	public static final class id {
 		public static final int accessibility_action_clickable_span = 0x7f08000f;

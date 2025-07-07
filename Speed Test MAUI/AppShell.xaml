@@ -6,8 +6,7 @@
     xmlns:local="clr-namespace:Speed_Test_MAUI"
     Shell.FlyoutBehavior="Disabled"
     Title="{DynamicResource AppTitle}">
-    <ShellContent Title="Speed Test"
-                  ContentTemplate="{DataTemplate local:MainPage}"
+    <ShellContent ContentTemplate="{DataTemplate local:MainPage}"
                   Route="MainPage"/>
 
 </Shell>

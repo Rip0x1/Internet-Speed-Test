@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Speed Test MAUI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+8e2778b2e22b1aa94cfefc32f4858382891dfb1f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+dfbf70ab2a17db6457c79fd7c91131fce7cdc0ab")]
 [assembly: System.Reflection.AssemblyProductAttribute("Speed Test MAUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Speed Test MAUI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

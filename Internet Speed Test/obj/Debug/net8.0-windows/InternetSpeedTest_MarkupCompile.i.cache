@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Miracle 0x1\Downloads\Internet-Speed-Test\Internet Speed Test\obj\Debug\net8.0-windows\
+C:\Users\Miracle 0x1\Downloads\Internet\Internet Speed Test\obj\Debug\net8.0-windows\
 InternetSpeedTest
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-C:\Users\Miracle 0x1\Downloads\Internet-Speed-Test\Internet Speed Test\App.xaml
+C:\Users\Miracle 0x1\Downloads\Internet\Internet Speed Test\App.xaml
 31323647448
 
 7-717834481
 205-2061622104
 MainWindow.xaml;Styles\Resources.en.xaml;Styles\Resources.ru.xaml;
 
-True
+False
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Miracle 0x1\\Downloads\\Internet-Speed-Test\\Speed Test MAUI\\Speed Test MAUI.csproj": {}
+    "C:\\Users\\Miracle 0x1\\Downloads\\Internet\\Speed Test MAUI\\Speed Test MAUI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Miracle 0x1\\Downloads\\Internet-Speed-Test\\Speed Test MAUI\\Speed Test MAUI.csproj": {
+    "C:\\Users\\Miracle 0x1\\Downloads\\Internet\\Speed Test MAUI\\Speed Test MAUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Miracle 0x1\\Downloads\\Internet-Speed-Test\\Speed Test MAUI\\Speed Test MAUI.csproj",
+        "projectUniqueName": "C:\\Users\\Miracle 0x1\\Downloads\\Internet\\Speed Test MAUI\\Speed Test MAUI.csproj",
         "projectName": "Speed Test MAUI",
-        "projectPath": "C:\\Users\\Miracle 0x1\\Downloads\\Internet-Speed-Test\\Speed Test MAUI\\Speed Test MAUI.csproj",
+        "projectPath": "C:\\Users\\Miracle 0x1\\Downloads\\Internet\\Speed Test MAUI\\Speed Test MAUI.csproj",
         "packagesPath": "C:\\Users\\Miracle 0x1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Miracle 0x1\\Downloads\\Internet-Speed-Test\\Speed Test MAUI\\obj\\",
+        "outputPath": "C:\\Users\\Miracle 0x1\\Downloads\\Internet\\Speed Test MAUI\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "fallbackFolders": [
@@ -68,6 +68,10 @@
         "net8.0-android34.0": {
           "targetAlias": "net8.0-android",
           "dependencies": {
+            "CommunityToolkit.Maui": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
             "CommunityToolkit.Mvvm": {
               "target": "Package",
               "version": "[8.4.0, )"
@@ -78,11 +82,11 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.100, )"
+              "version": "[8.0.91, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.100, )"
+              "version": "[8.0.91, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -137,6 +141,10 @@
         "net8.0-ios18.0": {
           "targetAlias": "net8.0-ios",
           "dependencies": {
+            "CommunityToolkit.Maui": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
             "CommunityToolkit.Mvvm": {
               "target": "Package",
               "version": "[8.4.0, )"
@@ -147,11 +155,11 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.100, )"
+              "version": "[8.0.91, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.100, )"
+              "version": "[8.0.91, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -194,6 +202,10 @@
         "net8.0-maccatalyst18.0": {
           "targetAlias": "net8.0-maccatalyst",
           "dependencies": {
+            "CommunityToolkit.Maui": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
             "CommunityToolkit.Mvvm": {
               "target": "Package",
               "version": "[8.4.0, )"
@@ -204,11 +216,11 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.100, )"
+              "version": "[8.0.91, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.100, )"
+              "version": "[8.0.91, )"
             },
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
@@ -252,6 +264,10 @@
         "net8.0-windows10.0.19041": {
           "targetAlias": "net8.0-windows10.0.19041.0",
           "dependencies": {
+            "CommunityToolkit.Maui": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
             "CommunityToolkit.Mvvm": {
               "target": "Package",
               "version": "[8.4.0, )"
@@ -262,11 +278,11 @@
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
-              "version": "[8.0.100, )"
+              "version": "[8.0.91, )"
             },
             "Microsoft.Maui.Controls.Compatibility": {
               "target": "Package",
-              "version": "[8.0.100, )"
+              "version": "[8.0.91, )"
             }
           },
           "imports": [

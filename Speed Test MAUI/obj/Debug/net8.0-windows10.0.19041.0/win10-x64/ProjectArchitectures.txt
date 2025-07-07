@@ -1,1 +1,1 @@
-C:\Users\Miracle 0x1\Downloads\Internet-Speed-Test\Speed Test MAUI\Speed Test MAUI.csproj;x64
+C:\Users\Miracle 0x1\Downloads\Internet\Speed Test MAUI\Speed Test MAUI.csproj;x64
