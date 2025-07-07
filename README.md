@@ -58,8 +58,9 @@
 
 ## 📷 Скриншоты
 
-![image](https://github.com/user-attachments/assets/05231b7d-e7dc-4a07-bfd4-a31431f935be)
-![image](https://github.com/user-attachments/assets/7bc094b0-c9f3-4d2b-a8c5-db7bb716fbc2)
+![image](https://github.com/user-attachments/assets/60d714ca-41f0-40d1-ac96-59466c58bfa6)
+![image](https://github.com/user-attachments/assets/0d3a7f3e-f443-473d-9ed7-621b4cccc6d1)
+
 
 
 ---
