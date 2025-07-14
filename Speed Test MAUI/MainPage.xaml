@@ -36,9 +36,9 @@
         <Style TargetType="ProgressBar">
             <Setter Property="ProgressColor" Value="{Binding ProgressColor}"/>
             <Setter Property="BackgroundColor" Value="#424242"/>
-            <Setter Property="HeightRequest" Value="8"/>
-            <Setter Property="WidthRequest" Value="150"/>
-            <Setter Property="Progress" Value="{Binding Progress}"/>
+            <Setter Property="HeightRequest" Value="10"/>
+            <Setter Property="WidthRequest" Value="200"/>
+            <Setter Property="Progress" Value="{Binding Progress, Converter={StaticResource ProgressConverter}}"/>
             <Setter Property="Visual" Value="Material"/>
         </Style>
         <Style TargetType="RadioButton">
@@ -63,17 +63,13 @@
             <Setter Property="Padding" Value="15"/>
             <Setter Property="BorderColor" Value="#7C4DFF"/>
             <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="HeightRequest" Value="250"/>
         </Style>
-        <Style TargetType="Label" x:Key="ThemeLabel">
+        <Style TargetType="Label" x:Key="HistoryLabel">
             <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Style.Triggers>
-                <DataTrigger TargetType="Label" Binding="{Binding DarkTheme}" Value="True">
-                    <Setter Property="TextColor" Value="White"/>
-                </DataTrigger>
-                <DataTrigger TargetType="Label" Binding="{Binding LightTheme}" Value="True">
-                    <Setter Property="TextColor" Value="Black"/>
-                </DataTrigger>
-            </Style.Triggers>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextColor" Value="{Binding TextColor, Source={RelativeSource AncestorType={x:Type ContentPage}}, FallbackValue=Black}"/>
         </Style>
     </ContentPage.Resources>
     <VerticalStackLayout Spacing="20" Margin="20" VerticalOptions="Center" HorizontalOptions="Fill">
@@ -81,61 +77,46 @@
                FontSize="30"
                FontAttributes="Bold"
                HorizontalOptions="Center"
-               Style="{StaticResource ThemeLabel}"/>
-        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+               TextColor="{Binding TextColor}"/>
+        <HorizontalStackLayout Spacing="30" HorizontalOptions="Center">
             <RadioButton Content="Dark" IsChecked="{Binding DarkTheme, Mode=TwoWay}" GroupName="Theme"/>
             <RadioButton Content="Light" IsChecked="{Binding LightTheme, Mode=TwoWay}" GroupName="Theme"/>
         </HorizontalStackLayout>
-        <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*,*,*" HorizontalOptions="Fill" ColumnSpacing="9" Margin="0,10,0,10">
-            <Label Grid.Row="0" Grid.Column="0" Text="Download" FontSize="18" HorizontalOptions="Center" Style="{StaticResource ThemeLabel}"/>
-            <Label Grid.Row="0" Grid.Column="1" Text="Upload" FontSize="18" HorizontalOptions="Center" Style="{StaticResource ThemeLabel}"/>
-            <Label Grid.Row="0" Grid.Column="2" Text="Ping" FontSize="18" HorizontalOptions="Center" Style="{StaticResource ThemeLabel}"/>
-            <Label Grid.Row="0" Grid.Column="3" Text="Server" FontSize="18" HorizontalOptions="Center" Style="{StaticResource ThemeLabel}"/>
-            <Label Grid.Row="1" Grid.Column="0" Text="{Binding DownloadSpeed}" TextColor="#FF4081" FontSize="13" Margin="0, 10, 0, 0" HorizontalOptions="Center"/>
-            <Label Grid.Row="1" Grid.Column="1" Text="{Binding UploadSpeed}" TextColor="#FF4081" FontSize="13" Margin="0, 10, 0, 0" HorizontalOptions="Center"/>
-            <Label Grid.Row="1" Grid.Column="2" Text="{Binding Ping}" TextColor="#FF4081" FontSize="13"  Margin="0, 10, 0, 0" HorizontalOptions="Center"/>
-            <Label Grid.Row="1" Grid.Column="3" Text="{Binding Server}" TextColor="#FF4081" FontSize="13" Margin="0, 10, 0, 0" HorizontalOptions="Center"/>
+        <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,*,*,*" HorizontalOptions="Fill" ColumnSpacing="15" Margin="0,10,0,10">
+            <Label Grid.Row="0" Grid.Column="0" Text="Download" FontSize="18" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{Binding TextColor}"/>
+            <Label Grid.Row="0" Grid.Column="1" Text="Upload" FontSize="18" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{Binding TextColor}"/>
+            <Label Grid.Row="0" Grid.Column="2" Text="Ping" FontSize="18" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{Binding TextColor}"/>
+            <Label Grid.Row="0" Grid.Column="3" Text="Server" FontSize="18" HorizontalOptions="Center" FontAttributes="Bold" TextColor="{Binding TextColor}"/>
+            <Label Grid.Row="1" Grid.Column="0" Text="{Binding DownloadSpeed}" TextColor="#FF4081" FontSize="15" HorizontalOptions="Center"/>
+            <Label Grid.Row="1" Grid.Column="1" Text="{Binding UploadSpeed}" TextColor="#FF4081" FontSize="15" HorizontalOptions="Center"/>
+            <Label Grid.Row="1" Grid.Column="2" Text="{Binding Ping}" TextColor="#FF4081" FontSize="15" HorizontalOptions="Center"/>
+            <Label Grid.Row="1" Grid.Column="3" Text="{Binding Server}" TextColor="#FF4081" FontSize="15" HorizontalOptions="Center"/>
         </Grid>
-        <Frame Style="{StaticResource HistoryContainer}" HorizontalOptions="Fill" HeightRequest="250">
+        <Frame Style="{StaticResource HistoryContainer}">
             <VerticalStackLayout Spacing="10" Padding="10">
-                <Label Text="Test History" FontSize="16" HorizontalOptions="Center" Style="{StaticResource ThemeLabel}"/>
+                <Label Text="Test History" FontSize="16" HorizontalOptions="Center" TextColor="Black"/>
                 <ScrollView HorizontalOptions="Fill" HeightRequest="200">
                     <CollectionView ItemsSource="{Binding TestHistory}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Spacing="6" Padding="5">
-                                    <Label FontSize="14" Style="{StaticResource ThemeLabel}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="Test at " />
-                                                <Span Text="{Binding Timestamp, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label FontSize="14" Style="{StaticResource ThemeLabel}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="Download " />
-                                                <Span Text="{Binding DownloadSpeed, StringFormat='{0:F2} Mbps'}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label FontSize="14" Style="{StaticResource ThemeLabel}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="Upload " />
-                                                <Span Text="{Binding UploadSpeed, StringFormat='{0:F2} Mbps'}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label FontSize="14" Style="{StaticResource ThemeLabel}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="Ping " />
-                                                <Span Text="{Binding Ping, StringFormat='{0:F0} ms'}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
+                                    <HorizontalStackLayout Spacing="0">
+                                        <Label Text="Test at " Style="{StaticResource HistoryLabel}"/>
+                                        <Label Text="{Binding Timestamp, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}" Style="{StaticResource HistoryLabel}"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="0">
+                                        <Label Text="Download " Style="{StaticResource HistoryLabel}"/>
+                                        <Label Text="{Binding FormattedDownloadSpeed}" Style="{StaticResource HistoryLabel}"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="0">
+                                        <Label Text="Upload " Style="{StaticResource HistoryLabel}"/>
+                                        <Label Text="{Binding FormattedUploadSpeed}" Style="{StaticResource HistoryLabel}"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="0">
+                                        <Label Text="Ping " Style="{StaticResource HistoryLabel}"/>
+                                        <Label Text="{Binding FormattedPing}" Style="{StaticResource HistoryLabel}"/>
+                                    </HorizontalStackLayout>
+                                    <BoxView HeightRequest="1" Color="#7C4DFF" HorizontalOptions="Fill" Margin="0,5"/>
                                 </StackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
@@ -144,10 +125,14 @@
             </VerticalStackLayout>
         </Frame>
         <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
-            <Button Text="Start Test" Command="{Binding StartTestCommand}"/>
-            <Button Text="Export Results" Command="{Binding ExportCommand}"/>
-            <Button Text="Clear History" Command="{Binding ClearHistoryCommand}"/>
-            <Button Text="Close" Command="{Binding CloseCommand}"/>
+            <VerticalStackLayout>
+                <Button Text="Start Test" Command="{Binding StartTestCommand}"/>
+                <Button Text="Export Results" Command="{Binding ExportCommand}"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Button Text="Clear History" Command="{Binding ClearHistoryCommand}"/>
+                <Button Text="Close" Command="{Binding CloseCommand}"/>
+            </VerticalStackLayout>
         </HorizontalStackLayout>
         <ProgressBar IsVisible="{Binding IsTesting}" HorizontalOptions="Center"/>
     </VerticalStackLayout>

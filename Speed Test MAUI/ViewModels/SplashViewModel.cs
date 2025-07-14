@@ -21,9 +21,16 @@ public partial class SplashViewModel : ObservableObject
         try
         {
             Debug.WriteLine("Starting splash animation");
-            var page = Application.Current.MainPage;
-            var titleLabel = page?.FindByName<Label>("TitleLabel");
-            var loadingLabel = page?.FindByName<Label>("LoadingLabel");
+            await Task.Delay(100);
+            var page = Application.Current?.MainPage;
+            if (page == null)
+            {
+                Debug.WriteLine("MainPage is null");
+                throw new InvalidOperationException("MainPage is not initialized");
+            }
+
+            var titleLabel = page.FindByName<Label>("TitleLabel");
+            var loadingLabel = page.FindByName<Label>("LoadingLabel");
 
             if (titleLabel != null)
             {
@@ -59,13 +66,13 @@ public partial class SplashViewModel : ObservableObject
             Debug.WriteLine("Waiting for 1 second");
             await Task.Delay(1000);
             Debug.WriteLine("Navigating to AppShell");
-            await page.Navigation.PushAsync(new AppShell());
+            await page.Dispatcher.DispatchAsync(() => Application.Current.MainPage = new AppShell());
             Debug.WriteLine("Navigation to AppShell completed");
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"SplashViewModel error: {ex.Message}\n{ex.StackTrace}");
-            await Application.Current.MainPage?.DisplayAlert("Error", $"Failed to load main page: {ex.Message}", "OK");
+            await Application.Current?.MainPage?.DisplayAlert("Error", $"Failed to load main page: {ex.Message}", "OK");
         }
     }
 }

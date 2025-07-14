@@ -31,9 +31,6 @@
         <member name="P:Speed_Test_MAUI.ViewModels.MainViewModel.CardBackground">
             <inheritdoc cref="F:Speed_Test_MAUI.ViewModels.MainViewModel._cardBackground"/>
         </member>
-        <member name="P:Speed_Test_MAUI.ViewModels.MainViewModel.CardBackgroundGradient">
-            <inheritdoc cref="F:Speed_Test_MAUI.ViewModels.MainViewModel._cardBackgroundGradient"/>
-        </member>
         <member name="P:Speed_Test_MAUI.ViewModels.MainViewModel.ProgressColor">
             <inheritdoc cref="F:Speed_Test_MAUI.ViewModels.MainViewModel._progressColor"/>
         </member>
@@ -199,9 +196,6 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CardBackground">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CardBackground" generated properties.</summary>
         </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CardBackgroundGradient">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CardBackgroundGradient" generated properties.</summary>
-        </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ProgressColor">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ProgressColor" generated properties.</summary>
         </member>
@@ -246,9 +240,6 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CardBackground">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CardBackground" generated properties.</summary>
-        </member>
-        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CardBackgroundGradient">
-            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CardBackgroundGradient" generated properties.</summary>
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ProgressColor">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ProgressColor" generated properties.</summary>
