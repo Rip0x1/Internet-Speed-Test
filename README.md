@@ -58,8 +58,9 @@
 
 ## 📷 Скриншоты
 
-![image](https://github.com/user-attachments/assets/60d714ca-41f0-40d1-ac96-59466c58bfa6)
-![image](https://github.com/user-attachments/assets/0d3a7f3e-f443-473d-9ed7-621b4cccc6d1)
+<img width="390" height="840" alt="{7AED8696-7C8D-4C1C-8A21-911ECEDE00FA}" src="https://github.com/user-attachments/assets/99bb8e40-65fb-4be8-a552-4e3e932e521a" />
+<img width="392" height="838" alt="{138BE519-1135-4B6A-8832-54EDE4027637}" src="https://github.com/user-attachments/assets/ddd7ae08-a57f-4441-beb5-5e3e0124c0d7" />
+<img width="1168" height="666" alt="{CD2908FC-98B5-4EF8-A3A3-AD8DF7905608}" src="https://github.com/user-attachments/assets/a5ddfb1f-3b8e-47d2-aee6-5549a91275c6" />
 
 
 
